@@ -5,7 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const Book = require("../models/book");
 const uploadPath = path.join("public", Book.coverImageBasePath);
-const imageMimeTypes = ["images/jpeg, images/png, images/gif"];
+const imageMimeTypes = ["image/jpeg", "image/png", "image/gif"];
 const Author = require("../models/author");
 const upload = multer({
     dest: uploadPath,
@@ -57,7 +57,8 @@ router.post("/", upload.single("cover"), async (req, res) => {
     try {
         const newBook = await book.save();
         res.redirect("books");
-    } catch {
+    } catch (err) {
+        console.log(err);
         if (book.coverImageName != null) {
             removeBookCover(book.coverImageName);
         }
@@ -80,8 +81,8 @@ async function renderNewPage(res, book, hasError = false) {
 }
 
 function removeBookCover(fileName) {
-    fs.unlink(path.join(uploadPath, filenName), err => {
-        if (err) console.log(err);
+    fs.unlink(path.join(uploadPath, fileName), err => {
+        if (err) console.error(err);
     });
 }
 
