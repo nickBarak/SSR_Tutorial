@@ -185,4 +185,4 @@ const schedu2 = [
 const bounds1 = ["9:00", "23:30"];
 const bounds2 = ["8:00", "23:00"];
 
-console.log(findAvail(schedu1, bounds1, schedu2, bounds2, 376));
+console.log(findAvail(schedu1, bounds1, schedu2, bounds2, 60));
